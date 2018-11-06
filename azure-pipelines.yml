@@ -1,16 +1,28 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
-pool:
-  vmImage: 'Ubuntu 16.04'
+resources:
+- repo: self
+queue:
+  name: Hosted Ubuntu 1604
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- task: geeklearningio.gl-vsts-tasks-yarn.yarn-installer-task.YarnInstaller@2
+  displayName: Install Yarn 1.10.1
+  inputs:
+    versionSpec: 1.10.1
+
+- task: geeklearningio.gl-vsts-tasks-yarn.yarn-task.Yarn@2
+  displayName: yarn install
+  inputs:
+    Arguments: install
+
+- task: geeklearningio.gl-vsts-tasks-yarn.yarn-task.Yarn@2
+  displayName: yarn build
+  inputs:
+    Arguments: build-prod
+
+- task: PublishBuildArtifacts@1
+  displayName: Publish Artifact - web
+  inputs:
+    PathtoPublish: 'dist/'
+    ArtifactName: web
+    publishLocation: Container
