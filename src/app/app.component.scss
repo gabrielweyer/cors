@@ -1,7 +1,33 @@
+@import '~variables.scss';
+
+.cors {
+  &__app {
+    min-height: 100%;
+    position: relative;
+  }
+
+  &__footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    height: 8em;
+    font-size: $font-size-x-small;
+    text-align: center;
+    padding: 2em 0;
+
+    @include lg {
+      height: 18em;
+    }
+  }
+}
+
 ul {
   list-style-type: none;
+  padding-inline-start: 1rem;
 
   li {
     margin: 1rem 0 0 0;
   }
 }
+
+

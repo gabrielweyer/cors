@@ -1,10 +1,13 @@
-<h1>CORS</h1>
-<p>Fire up the dev tools and click on the buttons:</p>
-<ul>
-  <li><input type="button" (click)="onNoCors()" value="Without CORS"></li>
-  <li><input type="button" (click)="onCors()" value="CORS without cache"></li>
-  <li><input type="button" (click)="onCacheCors()" value="CORS with cache"></li>
-  <li><input type="button" (click)="onCacheCorsWithQueryString()" value="CORS with cache, same path but different query string"></li>
-  <li><input type="button" (click)="onCacheCorsWithDifferentPath()" value="CORS with cache but different path"></li>
-</ul>
-<p>If you need more context, read the <a href="https://github.com/gabrielweyer/cors/blob/master/README.md" target="_blank" rel="noopener noreferrer">README</a> of the project.</p>
+<div class="cors__app">
+  <h1>CORS</h1>
+  <p>Fire up the dev tools and click on the buttons:</p>
+  <ul>
+    <li><input type="button" (click)="onNoCors()" value="Without CORS"></li>
+    <li><input type="button" (click)="onCors()" value="CORS without cache"></li>
+    <li><input type="button" (click)="onCacheCors()" value="CORS with cache"></li>
+    <li><input type="button" (click)="onCacheCorsWithQueryString()" value="CORS with cache, same path but different query string"></li>
+    <li><input type="button" (click)="onCacheCorsWithDifferentPath()" value="CORS with cache but different path"></li>
+  </ul>
+  <p>If you need more context, read the <a href="https://github.com/gabrielweyer/cors/blob/master/README.md" target="_blank" rel="noopener noreferrer">README</a> of the project.</p>
+  <app-footer class="cors__footer"></app-footer>
+</div>

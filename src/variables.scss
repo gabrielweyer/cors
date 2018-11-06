@@ -1,0 +1,21 @@
+$action-color: #0b92c4;
+$mono-font-color: #7a7a7a;
+$mono-font-background-color: #eee;
+
+$mono-font-family: 'Consolas';
+
+$font-size-x-large: 1.5em;
+$font-size-large: 1.25em;
+$font-size-normal: 1em;
+$font-size-small: 0.9em;
+$font-size-x-small: 0.8em;
+
+$mono-font-size-normal: 1.1em;
+
+$screen-lg-min: 992px;
+
+@mixin lg {
+  @media (max-width: #{$screen-lg-min}) {
+      @content;
+  }
+}

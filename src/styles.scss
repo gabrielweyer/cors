@@ -1,1 +1,53 @@
-/* You can add global styles to this file, and also import other style files */
+@import '~variables.scss';
+
+html,
+body {
+  margin: 0;
+  padding: 0 10px;
+  height: 100%;
+}
+
+body {
+  font-family: 'Verdana', sans-serif;
+  font-size: $font-size-normal;
+  line-height: 1.3em;
+
+  @include lg {
+    font-size: $font-size-small;
+  }
+}
+
+a {
+  cursor: pointer;
+  color: $action-color;
+  text-decoration: underline darken($action-color, 5);
+}
+
+em {
+  font-weight: 600;
+  font-style: normal;
+}
+
+h1 {
+  margin: 0;
+  padding: 0.5em 0 0 0;
+  line-height: $font-size-x-large;
+  font-size: $font-size-x-large;
+}
+
+h2 {
+  margin: 0;
+  padding: 0 0 0.4em 0;
+  line-height: $font-size-large;
+  font-size: $font-size-large;
+}
+
+.mono-font {
+  font-family: $mono-font-family;
+  font-size: $mono-font-size-normal;
+  background-color: $mono-font-background-color;
+  border-radius: 3px;
+  padding: 0 5px;
+  color: $mono-font-color;
+  border: 1px solid darken($mono-font-background-color, 10%);
+}
