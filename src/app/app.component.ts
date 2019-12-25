@@ -9,7 +9,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   private readonly httpOptions = {
     headers: new HttpHeaders({
-      'Authorization': 'Bearer sob'
+      Authorization: 'Bearer sob'
     })
   };
 

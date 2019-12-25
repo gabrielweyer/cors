@@ -5,7 +5,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build-prod": "ng build --prod"
+    "build-prod": "ng build --prod",
+    "lint": "ng lint"
   },
   "private": true,
   "dependencies": {
