@@ -6,9 +6,9 @@ pool:
 steps:
 
 - task: geeklearningio.gl-vsts-tasks-yarn.yarn-installer-task.YarnInstaller@3
-  displayName: Install Yarn 1.16.0
+  displayName: Install Yarn 1.21.1
   inputs:
-    versionSpec: 1.16.0
+    versionSpec: 1.21.1
 
 - task: geeklearningio.gl-vsts-tasks-yarn.yarn-task.Yarn@3
   displayName: yarn install
