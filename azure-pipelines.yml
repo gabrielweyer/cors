@@ -1,51 +1,41 @@
-resources:
-- repo: self
 pool:
-  vmImage: 'ubuntu-18.04'
+  vmImage: 'ubuntu-20.04'
 
-steps:
-
-- task: geeklearningio.gl-vsts-tasks-yarn.yarn-installer-task.YarnInstaller@3
-  displayName: Install Yarn 1.21.1
-  inputs:
-    versionSpec: 1.21.1
-
-- task: geeklearningio.gl-vsts-tasks-yarn.yarn-task.Yarn@3
-  displayName: yarn install
-  inputs:
-    arguments: install
-
-- task: geeklearningio.gl-vsts-tasks-yarn.yarn-task.Yarn@3
-  displayName: yarn lint
-  inputs:
-    aguments: lint
-
-- task: geeklearningio.gl-vsts-tasks-yarn.yarn-task.Yarn@3
-  displayName: yarn build-prod
-  inputs:
-    arguments: build-prod
-
-- task: geeklearningio.gl-vsts-tasks-file-patch.json-patch-task.JsonPatch@3
-  displayName: Version web Artifact
-  inputs:
-    JsonWorkingDir: 'dist/'
-    JsonTargetFilters: environment.json
-    JsonPatchContent: |
-     = /build => "$(BUILD_BUILDNUMBER)"
-     = /commit=> "$(BUILD_SOURCEVERSION)"
-    OutputPatchFile: true
-    FailIfNoPatchApplied: true
-
-- task: PublishBuildArtifacts@1
-  displayName: Publish Artifact - web
-  inputs:
-    PathtoPublish: 'dist/'
-    ArtifactName: web
-    publishLocation: Container
-
-- task: PublishBuildArtifacts@1
-  displayName: Publish Artifact - ARM
-  inputs:
-    PathtoPublish: 'template/template.json'
-    ArtifactName: arm
-    publishLocation: Container
+stages:
+- stage: Build
+  jobs:
+  - job: BuildAndPublishArtifacts
+    displayName: Build and publish artifacts
+    steps:
+    - task: geeklearningio.gl-vsts-tasks-yarn.yarn-installer-task.YarnInstaller@3
+      displayName: Install Yarn 1.21.1
+      inputs:
+        versionSpec: 1.21.1
+    - task: geeklearningio.gl-vsts-tasks-yarn.yarn-task.Yarn@3
+      displayName: yarn install
+      inputs:
+        arguments: install
+    - task: geeklearningio.gl-vsts-tasks-yarn.yarn-task.Yarn@3
+      displayName: yarn lint
+      inputs:
+        aguments: lint
+    - task: geeklearningio.gl-vsts-tasks-yarn.yarn-task.Yarn@3
+      displayName: yarn build-prod
+      inputs:
+        arguments: build-prod
+    - task: geeklearningio.gl-vsts-tasks-file-patch.json-patch-task.JsonPatch@3
+      displayName: Version web Artifact
+      inputs:
+        JsonWorkingDir: 'dist/'
+        JsonTargetFilters: environment.json
+        JsonPatchContent: |
+          = /build => "$(BUILD_BUILDNUMBER)"
+          = /commit => "$(BUILD_SOURCEVERSION)"
+        OutputPatchFile: true
+        FailIfNoPatchApplied: true
+    - publish: 'dist/'
+      displayName: Publish Artifact - web
+      artifact: web
+    - publish: 'template/template.json'
+      displayName: Publish Artifact - ARM
+      artifact: arm
