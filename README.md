@@ -2,15 +2,16 @@
 
 Hosted at [https://corscache.blob.core.windows.net/index.html][cors-app].
 
-Illustrates three scenarios related to [CORS][cors]:
+Illustrates different scenarios related to [CORS][cors]:
 
 - A preflight request with the server responding without any `CORS` headers
 - A preflight request with the server responding with all the expected `CORS` headers with the exception of `Access-Control-Max-Age`
-- A preflight request with the server responding with all the expected `CORS` headers including `Access-Control-Max-Age`
+- Preflight requests with the server responding with all the expected `CORS` headers including `Access-Control-Max-Age`
+  - Use a different path and query string to demonstrate the impact on the cache
 
-## Without any `CORS` headers
+## Without any CORS headers
 
-### Preflight request
+### Preflight request for NoCors
 
 - URL: `https://ik8zfy1go7.execute-api.ap-southeast-2.amazonaws.com/sob/NoCors`
 - Method: `OPTIONS`
@@ -27,17 +28,17 @@ origin: https://corscache.blob.core.windows.net
 
 None
 
-### Preflight result
+### Preflight result for NoCors
 
 The preflight fails as the response does not contain a `Access-Control-Allow-Origin` header. See the output of the `Chrome` console below:
 
 ```text
-Failed to load https://ik8zfy1go7.execute-api.ap-southeast-2.amazonaws.com/sob/NoCors: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. Origin 'https://corscache.blob.core.windows.net' is therefore not allowed access.
+Access to XMLHttpRequest at 'https://ik8zfy1go7.execute-api.ap-southeast-2.amazonaws.com/sob/NoCors' from origin 'https://corscache.blob.core.windows.net' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource.
 ```
 
-## With `CORS` headers (but **without** `Access-Control-Max-Age`)
+## With CORS headers (but without Access-Control-Max-Age)
 
-### Preflight request
+### Preflight request for CorsNoCache
 
 - URL: `https://ik8zfy1go7.execute-api.ap-southeast-2.amazonaws.com/sob/CorsNoCache`
 - Method: `OPTIONS`
@@ -59,11 +60,11 @@ access-control-allow-method: GET
 access-control-allow-origin: https://corscache.blob.core.windows.net
 ```
 
-### Preflight result
+### Preflight result for CorsNoCache
 
 The preflight succeeds and `Chrome` then issue the `GET` request.
 
-### GET request
+### GET request for CorsNoCache
 
 - URL: `https://ik8zfy1go7.execute-api.ap-southeast-2.amazonaws.com/sob/CorsNoCache`
 - Method: `GET`
@@ -81,7 +82,7 @@ origin: https://corscache.blob.core.windows.net
 access-control-allow-origin: https://corscache.blob.core.windows.net
 ```
 
-### GET result
+### GET result for CorsNoCache
 
 The `GET` succeeds and returns the content of the `Authorization` header (super secure I know):
 
@@ -93,9 +94,9 @@ The `GET` succeeds and returns the content of the `Authorization` header (super 
 
 ![One preflight per GET](./docs/many-preflights.png)
 
-## With `CORS` headers (and **with** `Access-Control-Max-Age`)
+## With CORS headers (and with Access-Control-Max-Age)
 
-### Preflight request
+### Preflight request for CorsCache
 
 - URL: `https://ik8zfy1go7.execute-api.ap-southeast-2.amazonaws.com/sob/CorsCache`
 - Method: `OPTIONS`
@@ -118,11 +119,11 @@ access-control-allow-origin: https://corscache.blob.core.windows.net
 access-control-max-age: 86400
 ```
 
-### Preflight result
+### Preflight result for CorsCache
 
 The preflight succeeds and `Chrome` then issue the `GET` request.
 
-### GET request
+### GET request for CorsCache
 
 - URL: `https://ik8zfy1go7.execute-api.ap-southeast-2.amazonaws.com/sob/CorsCache`
 - Method: `GET`
@@ -140,7 +141,7 @@ origin: https://corscache.blob.core.windows.net
 access-control-allow-origin: https://corscache.blob.core.windows.net
 ```
 
-### GET result
+### GET result for CorsCache
 
 The `GET` succeeds and returns the content of the `Authorization` header (super secure I know):
 
@@ -155,8 +156,10 @@ The `GET` succeeds and returns the content of the `Authorization` header (super 
 This is true as long as the result of the initial preflight is cached. `Access-Control-Max-Age` is capped by a [maximum value for each browser][max-age]:
 
 - 24 hours for Firefox
-- 10 minutes for Chromium
+- 2 hours for Chromium (10 minutes for v75 and prior)
+
+The initial preflight is only cached for the same path and query string.
 
 [cors-app]: https://corscache.blob.core.windows.net/index.html
 [cors]: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
-[max-age]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Max-Age
+[max-age]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Max-Age#Directives
