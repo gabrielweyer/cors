@@ -41,6 +41,13 @@ stages:
       artifact: arm
 
 - stage: Release
+  variables:
+  - name: ResourceGroupLocation
+    value: 'Southeast Asia'
+  - name: ResourceGroupName
+    value: cors-cache
+  - name: StorageAccountName
+    value: corscache
   jobs:
   - deployment: Deploy
     displayName: Deploy
