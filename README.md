@@ -40,7 +40,7 @@ Access to XMLHttpRequest at 'https://ik8zfy1go7.execute-api.ap-southeast-2.amazo
 
 ### Preflight request for CorsNoCache
 
-- URL: `https://ik8zfy1go7.execute-api.ap-southeast-2.amazonaws.com/sob/CorsNoCache`
+- URL: `https://ik8zfy1go7.execute-api.ap-southeast-2.amazonaws.com/prod/CorsNoCache`
 - Method: `OPTIONS`
 
 **Relevant preflight request headers**:
@@ -66,13 +66,13 @@ The preflight succeeds and `Chrome` then issue the `GET` request.
 
 ### GET request for CorsNoCache
 
-- URL: `https://ik8zfy1go7.execute-api.ap-southeast-2.amazonaws.com/sob/CorsNoCache`
+- URL: `https://ik8zfy1go7.execute-api.ap-southeast-2.amazonaws.com/prod/CorsNoCache`
 - Method: `GET`
 
 **Relevant GET request headers**:
 
 ```text
-authorization: Bearer sob
+authorization: Bearer TopSecret
 origin: https://corscache.blob.core.windows.net
 ```
 
@@ -87,7 +87,7 @@ access-control-allow-origin: https://corscache.blob.core.windows.net
 The `GET` succeeds and returns the content of the `Authorization` header (super secure I know):
 
 ```json
-{"authorization":"Bearer sob"}
+{"authorization":"Bearer TopSecret"}
 ```
 
 **Note**: each subsequent `GET` call requires a preflight request:
@@ -98,7 +98,7 @@ The `GET` succeeds and returns the content of the `Authorization` header (super 
 
 ### Preflight request for CorsCache
 
-- URL: `https://ik8zfy1go7.execute-api.ap-southeast-2.amazonaws.com/sob/CorsCache`
+- URL: `https://ik8zfy1go7.execute-api.ap-southeast-2.amazonaws.com/prod/CorsCache`
 - Method: `OPTIONS`
 
 **Relevant preflight request headers**:
@@ -125,13 +125,13 @@ The preflight succeeds and `Chrome` then issue the `GET` request.
 
 ### GET request for CorsCache
 
-- URL: `https://ik8zfy1go7.execute-api.ap-southeast-2.amazonaws.com/sob/CorsCache`
+- URL: `https://ik8zfy1go7.execute-api.ap-southeast-2.amazonaws.com/prod/CorsCache`
 - Method: `GET`
 
 **Relevant GET request headers**:
 
 ```text
-authorization: Bearer sob
+authorization: Bearer TopSecret
 origin: https://corscache.blob.core.windows.net
 ```
 
@@ -146,7 +146,7 @@ access-control-allow-origin: https://corscache.blob.core.windows.net
 The `GET` succeeds and returns the content of the `Authorization` header (super secure I know):
 
 ```json
-{"authorization":"Bearer sob"}
+{"authorization":"Bearer TopSecret"}
 ```
 
 **Note**: subsequent `GET` calls do not issue preflight requests:
