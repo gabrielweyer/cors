@@ -13,7 +13,7 @@ Illustrates different scenarios related to [CORS][cors]:
 
 ### Preflight request for NoCors
 
-- URL: `https://ik8zfy1go7.execute-api.ap-southeast-2.amazonaws.com/sob/NoCors`
+- URL: `https://ik8zfy1go7.execute-api.ap-southeast-2.amazonaws.com/prod/NoCors`
 - Method: `OPTIONS`
 
 **Relevant preflight request headers**:
@@ -33,7 +33,7 @@ None
 The preflight fails as the response does not contain a `Access-Control-Allow-Origin` header. See the output of the `Chrome` console below:
 
 ```text
-Access to XMLHttpRequest at 'https://ik8zfy1go7.execute-api.ap-southeast-2.amazonaws.com/sob/NoCors' from origin 'https://corscache.blob.core.windows.net' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+Access to XMLHttpRequest at 'https://ik8zfy1go7.execute-api.ap-southeast-2.amazonaws.com/prod/NoCors' from origin 'https://corscache.blob.core.windows.net' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource.
 ```
 
 ## With CORS headers (but without Access-Control-Max-Age)

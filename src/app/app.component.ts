@@ -32,7 +32,7 @@ export class AppComponent {
   }
 
   onNoCors(): void {
-    this.invoke('https://ik8zfy1go7.execute-api.ap-southeast-2.amazonaws.com/sob/NoCors');
+    this.invoke('https://ik8zfy1go7.execute-api.ap-southeast-2.amazonaws.com/prod/NoCors');
   }
 
   private invoke(uri: string): void {
