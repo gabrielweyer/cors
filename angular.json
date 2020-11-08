@@ -94,5 +94,8 @@
       }
     }
   },
-  "defaultProject": "cors"
+  "defaultProject": "cors",
+  "cli": {
+    "analytics": "7527ed7a-256b-4e92-a3db-fe67725dba6c"
+  }
 }
