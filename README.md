@@ -1,6 +1,6 @@
 # CORS
 
-[![Build Status](https://dev.azure.com/gabrielweyer/Cors/_apis/build/status/Cors?branchName=master)](https://dev.azure.com/gabrielweyer/Cors/_build/latest?definitionId=9&branchName=master)
+[![Build Status](https://dev.azure.com/gabrielweyer/Cors/_apis/build/status/Cors?branchName=main)](https://dev.azure.com/gabrielweyer/Cors/_build/latest?definitionId=9&branchName=main)
 
 Hosted at [https://corscache.blob.core.windows.net/index.html][cors-app].
 

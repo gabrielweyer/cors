@@ -41,7 +41,7 @@ stages:
       artifact: arm
 
 - stage: Release
-  condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
+  condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/main'))
   variables:
   - name: ResourceGroupLocation
     value: 'Southeast Asia'
