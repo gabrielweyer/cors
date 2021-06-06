@@ -38,6 +38,6 @@ export class AppComponent {
   private invoke(uri: string): void {
     this.http
       .get(uri, this.httpOptions)
-      .subscribe((r: string) => console.log(r));
+      .subscribe((r: object) => console.log(r));
   }
 }

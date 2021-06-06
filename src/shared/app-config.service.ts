@@ -8,8 +8,8 @@ interface Config {
 
 @Injectable()
 export class AppConfigService {
-  build: string;
-  commit: string;
+  build = '';
+  commit = '';
 
   constructor(private readonly http: HttpClient) {}
 
