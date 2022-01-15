@@ -25,22 +25,30 @@ stages:
   - job: BuildAndPublishArtifacts
     displayName: Build and publish artifacts
     steps:
-    - task: geeklearningio.gl-vsts-tasks-yarn.yarn-installer-task.YarnInstaller@3
-      displayName: Install Yarn 1.22.5
+    - task: Bash@3
+      displayName: 'Use Yarn Modern'
       inputs:
-        versionSpec: 1.22.5
-    - task: geeklearningio.gl-vsts-tasks-yarn.yarn-task.Yarn@3
-      displayName: yarn install
+        targetType: inline
+        script: |
+          yarn set version berry
+    - task: Bash@3
+      displayName: 'yarn install'
       inputs:
-        arguments: install
-    - task: geeklearningio.gl-vsts-tasks-yarn.yarn-task.Yarn@3
-      displayName: yarn lint
+        targetType: inline
+        script: |
+          yarn install
+    - task: Bash@3
+      displayName: 'yarn lint'
       inputs:
-        aguments: lint
-    - task: geeklearningio.gl-vsts-tasks-yarn.yarn-task.Yarn@3
-      displayName: yarn build-prod
+        targetType: inline
+        script: |
+          yarn lint
+    - task: Bash@3
+      displayName: 'yarn build-prod'
       inputs:
-        arguments: build-prod
+        targetType: inline
+        script: |
+          yarn build-prod
     - task: geeklearningio.gl-vsts-tasks-file-patch.json-patch-task.JsonPatch@3
       displayName: Version web Artifact
       inputs:
