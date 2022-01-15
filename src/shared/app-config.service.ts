@@ -13,7 +13,7 @@ export class AppConfigService {
 
   constructor(private readonly http: HttpClient) {}
 
-  public load(): Promise<{}> {
+  public load(): Promise<unknown> {
     return new Promise((resolve) => {
       this.http
         .get<Config>('./environment.json')
