@@ -1,3 +1,4 @@
 * eol=lf
 yarn.lock eol=crlf
 *.png -text
+/.yarn/releases/** binary
