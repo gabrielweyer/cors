@@ -25,24 +25,15 @@ stages:
   - job: BuildAndPublishArtifacts
     displayName: Build and publish artifacts
     steps:
-    - task: Bash@3
+    - bash: |
+        yarn install
       displayName: 'yarn install'
-      inputs:
-        targetType: inline
-        script: |
-          yarn install
-    - task: Bash@3
+    - bash: |
+        yarn lint
       displayName: 'yarn lint'
-      inputs:
-        targetType: inline
-        script: |
-          yarn lint
-    - task: Bash@3
+    - bash: |
+        yarn build-prod
       displayName: 'yarn build-prod'
-      inputs:
-        targetType: inline
-        script: |
-          yarn build-prod
     - task: geeklearningio.gl-vsts-tasks-file-patch.json-patch-task.JsonPatch@3
       displayName: Version web Artifact
       inputs:
