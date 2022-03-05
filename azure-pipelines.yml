@@ -26,12 +26,6 @@ stages:
     displayName: Build and publish artifacts
     steps:
     - task: Bash@3
-      displayName: 'Use Yarn Modern'
-      inputs:
-        targetType: inline
-        script: |
-          yarn set version berry
-    - task: Bash@3
       displayName: 'yarn install'
       inputs:
         targetType: inline
