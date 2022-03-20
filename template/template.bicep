@@ -6,7 +6,7 @@ param location string = resourceGroup().location
 @maxLength(24)
 param name string
 
-resource name_resource 'Microsoft.Storage/storageAccounts@2021-08-01' = {
+resource storageAccount 'Microsoft.Storage/storageAccounts@2021-08-01' = {
   name: name
   location: location
   sku: {
@@ -28,5 +28,4 @@ resource name_resource 'Microsoft.Storage/storageAccounts@2021-08-01' = {
   identity: {
     type: 'SystemAssigned'
   }
-  dependsOn: []
 }
