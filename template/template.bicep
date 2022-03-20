@@ -4,10 +4,10 @@ param location string = resourceGroup().location
 @description('Storage account name, globally unique. Rules and restrictions: https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/resource-name-rules#microsoftstorage.')
 @minLength(3)
 @maxLength(24)
-param name string
+param storageAccoutName string
 
 resource storageAccount 'Microsoft.Storage/storageAccounts@2021-08-01' = {
-  name: name
+  name: storageAccoutName
   location: location
   sku: {
     name: 'Standard_LRS'
