@@ -47,9 +47,9 @@ stages:
     - publish: 'dist/'
       displayName: Publish Artifact - web
       artifact: web
-    - publish: 'template/template.json'
-      displayName: Publish Artifact - ARM
-      artifact: arm
+    - publish: 'template/template.bicep'
+      displayName: Publish Artifact - Bicep
+      artifact: bicep
 
 - stage: Release
   condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/main'))
@@ -76,8 +76,8 @@ stages:
               resourceGroupName: '$(ResourceGroupName)'
               location: '$(ResourceGroupLocation)'
               templateLocation: 'Linked artifact'
-              csmFile: '$(Pipeline.Workspace)/arm/template.json'
-              overrideParameters: -name $(StorageAccountName)
+              csmFile: '$(Pipeline.Workspace)/bicep/template.bicep'
+              overrideParameters: -storageAccoutName $(StorageAccountName)
               deploymentMode: 'Incremental'
           - task: AzureCLI@2
             displayName: 'Create public $root container if not exist'
