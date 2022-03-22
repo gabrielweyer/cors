@@ -4,9 +4,21 @@ on:
   push:
     branches:
       - main
+    ignore-paths:
+      - '.vscode/**'
+      - 'template/**'
+      - azure-pipelines.yml
+      - LICENSE
+      - README.md
   pull_request:
     branches:
       - main
+    ignore-paths:
+      - '.vscode/**'
+      - 'template/**'
+      - azure-pipelines.yml
+      - LICENSE
+      - README.md
   schedule:
     - cron: '16 9 * * 5'
 
