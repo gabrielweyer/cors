@@ -47,7 +47,7 @@ stages:
     - publish: 'dist/'
       displayName: Publish Artifact - web
       artifact: web
-    - publish: 'template/template.bicep'
+    - publish: 'deploy/main.bicep'
       displayName: Publish Artifact - Bicep
       artifact: bicep
 
@@ -69,14 +69,14 @@ stages:
         deploy:
           steps:
           - task: AzureResourceGroupDeployment@3
-            displayName: 'Deploy ARM template'
+            displayName: 'Deploy Bicep file'
             inputs:
               ConnectedServiceName: 'Visual Studio Professional with MSDN (251b1820-1cf0-476b-a9e5-5208d0fa93e7)'
               action: 'Create Or Update Resource Group'
               resourceGroupName: '$(ResourceGroupName)'
               location: '$(ResourceGroupLocation)'
               templateLocation: 'Linked artifact'
-              csmFile: '$(Pipeline.Workspace)/bicep/template.bicep'
+              csmFile: '$(Pipeline.Workspace)/bicep/main.bicep'
               overrideParameters: -storageAccoutName $(StorageAccountName)
               deploymentMode: 'Incremental'
           - task: AzureCLI@2
