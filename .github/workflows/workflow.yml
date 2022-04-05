@@ -6,7 +6,6 @@ on:
       - main
     paths-ignore:
       - '.vscode/**'
-      - azure-pipelines.yml
       - LICENSE
       - README.md
   pull_request:
@@ -14,7 +13,6 @@ on:
       - main
     paths-ignore:
       - '.vscode/**'
-      - azure-pipelines.yml
       - LICENSE
       - README.md
 
@@ -46,3 +44,54 @@ jobs:
           name: bicep
           path: deploy
           if-no-files-found: error
+  release:
+    name: Release
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-20.04
+    needs: Build
+    env:
+      resourceGroupName: cors-cache
+      storageAccoutName: corscache
+    steps:
+      - name: Download bicep artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: bicep
+          path: deploy
+      - name: Download web artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: web
+          path: web
+      - name: Sign in to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Set deployment name
+        run: echo "DEPLOYMENT_NAME=main-$(date +%y%m%d-%H%M%S)-$(uuidgen | cut -c 1-4)" >> $GITHUB_ENV
+      - name: Deploy Bicep file
+        uses: azure/arm-deploy@v1
+        with:
+          deploymentName: ${{ env.DEPLOYMENT_NAME }}
+          resourceGroupName: ${{ env.resourceGroupName }}
+          template: deploy/main.bicep
+          parameters: >
+            storageAccoutName=${{ env.storageAccoutName }}
+          failOnStdErr: false
+      - name: Create storage container
+        uses: Azure/cli@v1
+        with:
+          inlineScript: |
+            az storage container create \
+              -n '$root' \
+              --public-access blob \
+              --account-name ${{ env.storageAccoutName }}
+      - name: Deploy
+        uses: Azure/cli@v1
+        with:
+          inlineScript: |
+            az storage blob upload-batch \
+              --overwrite \
+              -d '$root' \
+              -s web/ \
+              --account-name ${{ env.storageAccoutName }}
