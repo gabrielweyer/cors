@@ -1,0 +1,48 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '.vscode/**'
+      - azure-pipelines.yml
+      - LICENSE
+      - README.md
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      - '.vscode/**'
+      - azure-pipelines.yml
+      - LICENSE
+      - README.md
+
+jobs:
+  Build:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: yarn install
+        run: yarn install
+      - name: yarn lint
+        run: yarn lint
+      - name: yarn build-prod
+        run: yarn build-prod
+      - name: Version web artifact
+        run: jq --arg formattedDate $(date +%Y%m%d) '.build = $formattedDate + "." + $ENV.GITHUB_RUN_NUMBER | .commit = $ENV.GITHUB_SHA' dist/environment.json > tmp.$$.json && mv tmp.$$.json dist/environment.json
+      - name: Upload web artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: web
+          path: dist
+          if-no-files-found: error
+      - name: Upload bicep artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: bicep
+          path: deploy
+          if-no-files-found: error
