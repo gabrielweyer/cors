@@ -95,5 +95,5 @@ stages:
               azureSubscription: 'Visual Studio Professional with MSDN (251b1820-1cf0-476b-a9e5-5208d0fa93e7)'
               scriptType: bash
               scriptLocation: inlineScript
-              inlineScript: 'az storage blob upload-batch -d ''$root'' -s "$1/web/" --account-name "$2"'
+              inlineScript: 'az storage blob upload-batch --overwrite -d ''$root'' -s "$1/web/" --account-name "$2"'
               arguments: '$(Pipeline.Workspace) $(StorageAccountName)'
