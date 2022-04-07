@@ -1,6 +1,6 @@
 # CORS
 
-[![Build Status](https://dev.azure.com/gabrielweyer/Cors/_apis/build/status/Cors?branchName=main)](https://dev.azure.com/gabrielweyer/Cors/_build/latest?definitionId=9&branchName=main)
+[![Build Status][github-actions-shield]][github-actions]
 
 Hosted at [https://corscache.blob.core.windows.net/index.html][cors-app].
 
@@ -165,3 +165,5 @@ The initial preflight is only cached for the same path and query string.
 [cors-app]: https://corscache.blob.core.windows.net/index.html
 [cors]: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
 [max-age]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Max-Age#Directives
+[github-actions-shield]: https://github.com/gabrielweyer/cors/actions/workflows/workflow.yml/badge.svg
+[github-actions]: https://github.com/gabrielweyer/cors/actions/workflows/workflow.yml
