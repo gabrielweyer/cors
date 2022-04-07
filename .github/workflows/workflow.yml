@@ -51,7 +51,7 @@ jobs:
     needs: Build
     env:
       resourceGroupName: cors-cache
-      storageAccoutName: corscache
+      storageAccountName: corscache
     steps:
       - name: Download bicep artifact
         uses: actions/download-artifact@v3
@@ -76,16 +76,16 @@ jobs:
           resourceGroupName: ${{ env.resourceGroupName }}
           template: deploy/main.bicep
           parameters: >
-            storageAccoutName=${{ env.storageAccoutName }}
+            storageAccountName=${{ env.storageAccountName }}
           failOnStdErr: false
-      - name: Create storage container
+      - name: Create public $root container if not exist
         uses: Azure/cli@v1
         with:
           inlineScript: |
             az storage container create \
               -n '$root' \
               --public-access blob \
-              --account-name ${{ env.storageAccoutName }}
+              --account-name ${{ env.storageAccountName }}
       - name: Deploy
         uses: Azure/cli@v1
         with:
@@ -94,4 +94,4 @@ jobs:
               --overwrite \
               -d '$root' \
               -s web/ \
-              --account-name ${{ env.storageAccoutName }}
+              --account-name ${{ env.storageAccountName }}
