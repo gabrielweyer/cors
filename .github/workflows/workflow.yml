@@ -5,19 +5,28 @@ on:
     branches:
       - main
     paths-ignore:
+      - .github/workflows/security-scanning.yml
+      - .github/workflows/skipped-security-scanning.yml
+      - .github/workflows/skipped-workflow.yml
       - '.vscode/**'
+      - .editorconfig
       - LICENSE
       - README.md
   pull_request:
     branches:
       - main
     paths-ignore:
+      - .github/workflows/security-scanning.yml
+      - .github/workflows/skipped-security-scanning.yml
+      - .github/workflows/skipped-workflow.yml
       - '.vscode/**'
+      - .editorconfig
       - LICENSE
       - README.md
 
 jobs:
-  Build:
+  build:
+    name: Build
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
