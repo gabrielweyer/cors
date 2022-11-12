@@ -53,7 +53,7 @@ jobs:
       - name: yarn build-prod
         run: yarn build-prod
       - name: Version web artifact
-        run: jq --arg formattedDate $(date +%Y%m%d) '.build = $formattedDate + "." + $ENV.GITHUB_RUN_NUMBER | .commit = $ENV.GITHUB_SHA' dist/environment.json > tmp.$$.json && mv tmp.$$.json dist/environment.json
+        run: jq --arg formattedDate $(date +%Y%m%d) '.build = $formattedDate + "." + $ENV.GITHUB_RUN_NUMBER | .commit = $ENV.GITHUB_SHA | .apiBaseUrl = "https://cors-func.azurewebsites.net"' dist/environment.json > tmp.$$.json && mv tmp.$$.json dist/environment.json
       - name: Publish API
         working-directory: ./api
         run: |
