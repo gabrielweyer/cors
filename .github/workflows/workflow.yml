@@ -54,6 +54,18 @@ jobs:
         run: yarn build-prod
       - name: Version web artifact
         run: jq --arg formattedDate $(date +%Y%m%d) '.build = $formattedDate + "." + $ENV.GITHUB_RUN_NUMBER | .commit = $ENV.GITHUB_SHA' dist/environment.json > tmp.$$.json && mv tmp.$$.json dist/environment.json
+      - name: Publish API
+        working-directory: ./api
+        run: |
+          dotnet publish --configuration Release --output ./dist
+          cd dist
+          zip -r ./api.zip ./*
+      - name: Upload API artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: api
+          path: api/dist/api.zip
+          if-no-files-found: error
       - name: Upload web artifact
         uses: actions/upload-artifact@v3
         with:
@@ -96,6 +108,11 @@ jobs:
         with:
           name: web
           path: web
+      - name: Download API artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: api
+          path: api
       - name: Sign in to Azure
         uses: azure/login@v1
         with:
@@ -128,6 +145,8 @@ jobs:
           output_location: ''
           skip_app_build: true
           skip_api_build: true
+      - name: Deploy API
+        run: az functionapp deploy --resource-group ${{ env.RESOURCE_GROUP_NAME }} --name 'cors-func' --src-path 'api/api.zip'
 
   delete_preview_environment:
     name: Delete Static Web App Pull Request preview environment
