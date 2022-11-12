@@ -2,6 +2,7 @@
   "recommendations": [
     "EditorConfig.EditorConfig",
     "ms-azuretools.vscode-bicep",
-    "redhat.vscode-yaml"
+    "redhat.vscode-yaml",
+    "ms-azuretools.vscode-azurefunctions"
   ]
 }
