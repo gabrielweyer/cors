@@ -2,6 +2,30 @@
 @allowed(['westus2','centralus','eastus2','westeurope','eastasia'])
 param staticWebAppLocation string
 
+resource workspace 'Microsoft.OperationalInsights/workspaces@2021-06-01' = {
+  name: 'cors-log'
+  location: staticWebAppLocation
+  properties: {
+    sku: {
+      name: 'PerGB2018'
+    }
+    retentionInDays: 30
+    features: {
+      enableLogAccessUsingOnlyResourcePermissions: true
+    }
+  }
+}
+
+resource applicationInsights 'Microsoft.Insights/components@2020-02-02' = {
+  name: 'cors-appi'
+  location: staticWebAppLocation
+  kind: 'web'
+  properties: {
+    Application_Type: 'web'
+    WorkspaceResourceId: workspace.id
+  }
+}
+
 resource storageAccount 'Microsoft.Storage/storageAccounts@2021-08-01' = {
   name: 'corsst'
   location: staticWebAppLocation
@@ -47,6 +71,7 @@ resource apiAppSettings 'Microsoft.Web/sites/config@2021-03-01' = {
   parent: apiApp
   name: 'appsettings'
   properties: {
+    APPLICATIONINSIGHTS_CONNECTION_STRING: applicationInsights.properties.ConnectionString
     AzureWebJobsStorage: storageConnectionString
     FUNCTIONS_EXTENSION_VERSION: '~4'
     FUNCTIONS_WORKER_RUNTIME: 'dotnet'
