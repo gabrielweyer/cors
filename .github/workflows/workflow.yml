@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - name: yarn install
@@ -88,7 +88,7 @@ jobs:
             storageAccountName=${{ env.storageAccountName }}
           failOnStdErr: false
       - name: Create public $root container if not exist
-        uses: Azure/cli@v1
+        uses: azure/cli@v1
         with:
           inlineScript: |
             az storage container create \
@@ -96,7 +96,7 @@ jobs:
               --public-access blob \
               --account-name ${{ env.storageAccountName }}
       - name: Deploy
-        uses: Azure/cli@v1
+        uses: azure/cli@v1
         with:
           inlineScript: |
             az storage blob upload-batch \
