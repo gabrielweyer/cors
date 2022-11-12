@@ -1,0 +1,36 @@
+{
+  "trailingSlash": "never",
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["*.{js,css}"]
+  },
+  "globalHeaders": {
+    "x-frame-options": "DENY",
+    "feature-policy": "accelerometer 'none'; camera 'none'; geolocation 'none'; gyroscope 'none'; magnetometer 'none'; microphone 'none'; payment 'none'; usb 'none'",
+    "permissions-policy": "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), interest-cohort=()",
+    "content-security-policy": "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; object-src 'none'; frame-ancestors 'none'"
+  },
+  "routes": [
+    {
+      "route": "/index.html",
+      "methods": ["GET"],
+      "headers": {
+        "cache-control": "no-store"
+      }
+    },
+    {
+      "route": "/environment.json",
+      "methods": ["GET"],
+      "headers": {
+        "cache-control": "no-store"
+      }
+    },
+    {
+      "route": "/*.{js,css}",
+      "methods": ["GET"],
+      "headers": {
+        "cache-control": "public, max-age=604800, immutable"
+      }
+    }
+  ]
+}

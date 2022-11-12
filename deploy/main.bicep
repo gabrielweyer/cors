@@ -1,31 +1,20 @@
-@description('Location for all resources.')
-param location string = resourceGroup().location
+@description('Static Web App location.')
+@allowed(['westus2','centralus','eastus2','westeurope','eastasia'])
+param staticWebAppLocation string
 
-@description('Storage account name, globally unique. Rules and restrictions: https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/resource-name-rules#microsoftstorage.')
-@minLength(3)
-@maxLength(24)
-param storageAccountName string
-
-resource storageAccount 'Microsoft.Storage/storageAccounts@2021-08-01' = {
-  name: storageAccountName
-  location: location
+resource staticWebApp 'Microsoft.Web/staticSites@2022-03-01' = {
+  name: 'cors-stapp'
+  location: staticWebAppLocation
   sku: {
-    name: 'Standard_LRS'
+    name: 'Free'
+    tier: 'Free'
   }
-  kind: 'BlobStorage'
   properties: {
-    accessTier: 'Cool'
-    supportsHttpsTrafficOnly: true
-    encryption: {
-      services: {
-        blob: {
-          enabled: true
-        }
-      }
-      keySource: 'Microsoft.Storage'
+    branch: 'main'
+    provider: 'GitHub'
+    repositoryUrl: 'https://github.com/gabrielweyer/jwt-viewer'
+    buildProperties: {
+      skipGithubActionWorkflowGeneration: true
     }
-  }
-  identity: {
-    type: 'SystemAssigned'
   }
 }

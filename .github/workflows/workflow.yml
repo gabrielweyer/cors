@@ -13,6 +13,11 @@ on:
       - LICENSE
       - README.md
   pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - closed
     branches:
       - main
     paths-ignore:
@@ -24,10 +29,18 @@ on:
       - LICENSE
       - README.md
 
+env:
+  RESOURCE_GROUP_NAME: cors-rg
+  STATIC_WEB_APP_NAME: cors-stapp
+  AZURE_LOCATION: eastasia
+
 jobs:
   build:
     name: Build
-    runs-on: ubuntu-20.04
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    outputs:
+      deployPullRequest: ${{ steps.should_deploy_pr.outputs.deployPullRequest }}
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -53,10 +66,21 @@ jobs:
           name: bicep
           path: deploy
           if-no-files-found: error
+      - name: Determine if we're deploying on Pull Request
+        id: should_deploy_pr
+        if: ${{ github.event_name == 'pull_request' }}
+        run: |
+          headCommitMessage=$(git log ${{ github.event.pull_request.head.sha }} -n 1 --format=%B)
+          echo "HEAD commit message is: $headCommitMessage"
+          if [[ $headCommitMessage == *"[deploy-pr]"* ]]; then
+            echo "::notice ::Deploying Pull Request to preview environment"
+            echo "deployPullRequest=true" >> $GITHUB_OUTPUT
+          fi
+
   release:
     name: Release
-    if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-20.04
+    if: ${{ github.ref == 'refs/heads/main' || needs.build.outputs.deployPullRequest == 'true' }}
+    runs-on: ubuntu-22.04
     needs: Build
     env:
       resourceGroupName: cors-cache
@@ -75,32 +99,53 @@ jobs:
       - name: Sign in to Azure
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          creds: '{"clientId":"${{ secrets.AZURE_CLIENT_ID }}","clientSecret":"${{ secrets.AZURE_CLIENT_SECRET }}","subscriptionId":"${{ secrets.AZURE_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.AZURE_TENANT_ID }}"}'
       - name: Set deployment name
-        run: echo "DEPLOYMENT_NAME=main-$(date +%y%m%d-%H%M%S)-$(uuidgen | cut -c 1-4)" >> $GITHUB_ENV
+        run: echo "DEPLOYMENT_NAME=cors-$(date +%y%m%d-%H%M%S)-$(uuidgen | cut -c 1-4)" >> $GITHUB_ENV
+      - name: Create / update resource group
+        run: az group create --name ${{ env.RESOURCE_GROUP_NAME }} --location ${{ env.AZURE_LOCATION }}
       - name: Deploy Bicep file
         uses: azure/arm-deploy@v1
         with:
           deploymentName: ${{ env.DEPLOYMENT_NAME }}
-          resourceGroupName: ${{ env.resourceGroupName }}
+          resourceGroupName: ${{ env.RESOURCE_GROUP_NAME }}
           template: deploy/main.bicep
           parameters: >
-            storageAccountName=${{ env.storageAccountName }}
+            staticWebAppLocation=${{ env.AZURE_LOCATION }}
           failOnStdErr: false
-      - name: Create public $root container if not exist
-        uses: azure/cli@v1
+      - name: Set Static Web App deployment token
+        run: |
+          jsonDeploymentToken=$(az staticwebapp secrets list --name ${{ env.STATIC_WEB_APP_NAME }} --resource-group ${{ env.RESOURCE_GROUP_NAME }} --query 'properties.apiKey')
+          deploymentToken="${jsonDeploymentToken:1:-1}"
+          echo "::add-mask::$deploymentToken"
+          echo "DEPLOYMENT_TOKEN=$deploymentToken" >> $GITHUB_ENV
+      - name: Deploy to Static Web App
+        uses: Azure/static-web-apps-deploy@v1
         with:
-          inlineScript: |
-            az storage container create \
-              -n '$root' \
-              --public-access blob \
-              --account-name ${{ env.storageAccountName }}
-      - name: Deploy
-        uses: azure/cli@v1
+          azure_static_web_apps_api_token: ${{ env.DEPLOYMENT_TOKEN }}
+          action: 'upload'
+          app_location: 'web'
+          output_location: ''
+          skip_app_build: true
+          skip_api_build: true
+
+  delete_preview_environment:
+    name: Delete Static Web App Pull Request preview environment
+    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Sign in to Azure
+        uses: azure/login@v1
         with:
-          inlineScript: |
-            az storage blob upload-batch \
-              --overwrite \
-              -d '$root' \
-              -s web/ \
-              --account-name ${{ env.storageAccountName }}
+          creds: '{"clientId":"${{ secrets.AZURE_CLIENT_ID }}","clientSecret":"${{ secrets.AZURE_CLIENT_SECRET }}","subscriptionId":"${{ secrets.AZURE_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.AZURE_TENANT_ID }}"}'
+      - name: Set Static Web App deployment token
+        run: |
+          jsonDeploymentToken=$(az staticwebapp secrets list --name ${{ env.STATIC_WEB_APP_NAME }} --resource-group ${{ env.RESOURCE_GROUP_NAME }} --query 'properties.apiKey')
+          deploymentToken="${jsonDeploymentToken:1:-1}"
+          echo "::add-mask::$deploymentToken"
+          echo "DEPLOYMENT_TOKEN=$deploymentToken" >> $GITHUB_ENV
+      - name: Delete preview environment
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ env.DEPLOYMENT_TOKEN }}
+          action: 'close'
