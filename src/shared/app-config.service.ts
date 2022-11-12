@@ -4,12 +4,14 @@ import { Injectable } from '@angular/core';
 interface Config {
   build: string;
   commit: string;
+  apiBaseUrl: string;
 }
 
 @Injectable()
 export class AppConfigService {
   build = '';
   commit = '';
+  apiBaseUrl = '';
 
   constructor(private readonly http: HttpClient) {}
 
@@ -20,6 +22,7 @@ export class AppConfigService {
         .subscribe(config => {
           this.build = config.build;
           this.commit = config.commit;
+          this.apiBaseUrl = config.apiBaseUrl;
           resolve(true);
         });
     });
