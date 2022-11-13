@@ -8,9 +8,6 @@
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
-        },
-        "@schematics/angular:application": {
-          "strict": true
         }
       },
       "root": "",
@@ -100,9 +97,10 @@
       }
     }
   },
-  "defaultProject": "cors",
   "cli": {
     "analytics": "7527ed7a-256b-4e92-a3db-fe67725dba6c",
-    "defaultCollection": "@angular-eslint/schematics"
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }
