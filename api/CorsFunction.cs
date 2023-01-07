@@ -14,7 +14,7 @@ public class CorsFunction
     private readonly ILogger<CorsFunction> _logger;
     private static readonly List<string> AllowedOrigins = new() { "http://localhost:4200", "https://salmon-pond-0870a1e00.2.azurestaticapps.net" };
     private static readonly Regex PreviewEnvironment =
-        new Regex("https:\\/\\/salmon-pond-0870a1e00-\\d+\\.eastasia\\.2\\.azurestaticapps\\.net");
+        new("https:\\/\\/salmon-pond-0870a1e00-\\d+\\.eastasia\\.2\\.azurestaticapps\\.net", RegexOptions.None, TimeSpan.FromMilliseconds(100));
 
     public CorsFunction(ILogger<CorsFunction> logger)
     {
