@@ -34,7 +34,7 @@ public class CorsFunction
     }
 
     [FunctionName("NoCorsGet")]
-    public IActionResult RunNoCorsGet(
+    public static IActionResult RunNoCorsGet(
         [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "no-cors")]
         HttpRequest request)
     {
