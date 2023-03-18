@@ -2,7 +2,7 @@
 @allowed(['westus2','centralus','eastus2','westeurope','eastasia'])
 param staticWebAppLocation string
 
-resource workspace 'Microsoft.OperationalInsights/workspaces@2021-06-01' = {
+resource workspace 'Microsoft.OperationalInsights/workspaces@2022-10-01' = {
   name: 'cors-log'
   location: staticWebAppLocation
   properties: {
@@ -26,7 +26,7 @@ resource applicationInsights 'Microsoft.Insights/components@2020-02-02' = {
   }
 }
 
-resource storageAccount 'Microsoft.Storage/storageAccounts@2021-08-01' = {
+resource storageAccount 'Microsoft.Storage/storageAccounts@2022-09-01' = {
   name: 'corsst'
   location: staticWebAppLocation
   kind: 'StorageV2'
@@ -38,7 +38,7 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2021-08-01' = {
   }
 }
 
-resource hostingPlan 'Microsoft.Web/serverfarms@2021-03-01' = {
+resource hostingPlan 'Microsoft.Web/serverfarms@2022-03-01' = {
   name: 'cors-plan'
   location: staticWebAppLocation
   kind: ''
@@ -53,7 +53,7 @@ resource hostingPlan 'Microsoft.Web/serverfarms@2021-03-01' = {
 }
 
 var functionAppName = 'cors-func'
-resource apiApp 'Microsoft.Web/sites@2021-03-01' = {
+resource apiApp 'Microsoft.Web/sites@2022-03-01' = {
   name: functionAppName
   location: staticWebAppLocation
   identity: {
@@ -67,7 +67,7 @@ resource apiApp 'Microsoft.Web/sites@2021-03-01' = {
 }
 
 var storageConnectionString = 'DefaultEndpointsProtocol=https;AccountName=${storageAccount.name};AccountKey=${storageAccount.listKeys().keys[0].value};EndpointSuffix=${environment().suffixes.storage}'
-resource apiAppSettings 'Microsoft.Web/sites/config@2021-03-01' = {
+resource apiAppSettings 'Microsoft.Web/sites/config@2022-03-01' = {
   parent: apiApp
   name: 'appsettings'
   properties: {
