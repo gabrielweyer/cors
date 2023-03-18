@@ -66,7 +66,7 @@ resource apiApp 'Microsoft.Web/sites@2021-03-01' = {
   }
 }
 
-var storageConnectionString = 'DefaultEndpointsProtocol=https;AccountName=${storageAccount.name};AccountKey=${listKeys(storageAccount.id, storageAccount.apiVersion).keys[0].value};EndpointSuffix=${environment().suffixes.storage}'
+var storageConnectionString = 'DefaultEndpointsProtocol=https;AccountName=${storageAccount.name};AccountKey=${storageAccount.listKeys().keys[0].value};EndpointSuffix=${environment().suffixes.storage}'
 resource apiAppSettings 'Microsoft.Web/sites/config@2021-03-01' = {
   parent: apiApp
   name: 'appsettings'
