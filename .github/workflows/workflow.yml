@@ -29,6 +29,9 @@ on:
       - LICENSE
       - README.md
 
+permissions:
+  id-token: write
+
 env:
   RESOURCE_GROUP_NAME: cors-rg
   STATIC_WEB_APP_NAME: cors-stapp
@@ -93,6 +96,7 @@ jobs:
     name: Release
     if: ${{ github.ref == 'refs/heads/main' || needs.build.outputs.deployPullRequest == 'true' }}
     runs-on: ubuntu-22.04
+    environment: PROD
     needs: Build
     env:
       resourceGroupName: cors-cache
@@ -116,7 +120,9 @@ jobs:
       - name: Sign in to Azure
         uses: azure/login@v1
         with:
-          creds: '{"clientId":"${{ secrets.AZURE_CLIENT_ID }}","clientSecret":"${{ secrets.AZURE_CLIENT_SECRET }}","subscriptionId":"${{ secrets.AZURE_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.AZURE_TENANT_ID }}"}'
+          client-id: ${{ secrets.AZURE_CLIENT_ID_1 }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       - name: Set deployment name
         run: echo "DEPLOYMENT_NAME=cors-$(date +%y%m%d-%H%M%S)-$(uuidgen | cut -c 1-4)" >> $GITHUB_ENV
       - name: Create / update resource group
