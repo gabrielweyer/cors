@@ -3,6 +3,9 @@
   "ignorePatterns": [
     "projects/**/*"
   ],
+  "plugins": [
+    "@typescript-eslint"
+  ],
   "overrides": [
     {
       "files": [
@@ -23,7 +26,9 @@
           "error",
           {
             "selector": "enumMember",
-            "format": ["PascalCase"]
+            "format": [
+              "PascalCase"
+            ]
           }
         ],
         "@angular-eslint/component-selector": [
