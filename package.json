@@ -18,9 +18,9 @@
     "@angular/platform-browser": "17.0.8",
     "@angular/platform-browser-dynamic": "17.0.8",
     "@angular/router": "17.0.8",
-    "core-js": "^3.26.0",
-    "rxjs": "^7.5.7",
-    "tslib": "^2.4.1",
+    "core-js": "3.34.0",
+    "rxjs": "7.8.1",
+    "tslib": "2.6.2",
     "zone.js": "~0.14.2"
   },
   "devDependencies": {
@@ -33,11 +33,11 @@
     "@angular/cli": "^17.0.8",
     "@angular/compiler-cli": "^17.0.8",
     "@angular/language-service": "17.0.8",
-    "@types/node": "^18.11.8",
+    "@types/node": "18.19.3",
     "@typescript-eslint/eslint-plugin": "^6.10.0",
     "@typescript-eslint/parser": "^6.10.0",
     "eslint": "^8.53.0",
-    "ts-node": "^10.9.1",
+    "ts-node": "10.9.2",
     "typescript": "5.2.2"
   },
   "packageManager": "yarn@3.5.0"
