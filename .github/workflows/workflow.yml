@@ -56,7 +56,7 @@ jobs:
       - name: yarn build-prod
         run: yarn build-prod
       - name: Version web artifact
-        run: jq --arg formattedDate $(date +%Y%m%d) '.build = $formattedDate + "." + $ENV.GITHUB_RUN_NUMBER | .commit = $ENV.GITHUB_SHA | .apiBaseUrl = "https://cors-func.azurewebsites.net"' dist/environment.json > tmp.$$.json && mv tmp.$$.json dist/environment.json
+        run: jq --arg formattedDate $(date +%Y%m%d) '.build = $formattedDate + "." + $ENV.GITHUB_RUN_NUMBER | .commit = $ENV.GITHUB_SHA | .apiBaseUrl = "https://cors-func.azurewebsites.net"' dist/browser/environment.json > tmp.$$.json && mv tmp.$$.json dist/browser/environment.json
       - name: Publish API
         working-directory: ./api
         run: |
@@ -73,7 +73,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: web
-          path: dist
+          path: dist/browser
           if-no-files-found: error
       - name: Upload bicep artifact
         uses: actions/upload-artifact@v3
