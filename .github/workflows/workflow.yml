@@ -97,10 +97,12 @@ jobs:
     if: ${{ github.ref == 'refs/heads/main' || needs.build.outputs.deployPullRequest == 'true' }}
     runs-on: ubuntu-22.04
     environment: PROD
-    needs: Build
+    needs: build
     env:
       resourceGroupName: cors-cache
       storageAccountName: corscache
+      DEPLOYMENT_NAME:
+      DEPLOYMENT_TOKEN:
     steps:
       - name: Download bicep artifact
         uses: actions/download-artifact@v3
@@ -160,6 +162,8 @@ jobs:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-22.04
     environment: PROD
+    env:
+      DEPLOYMENT_TOKEN:
     steps:
       - name: Sign in to Azure
         uses: azure/login@v1
