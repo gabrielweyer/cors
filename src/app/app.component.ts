@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { AppConfigService } from 'src/shared/app-config.service';
+import { AppConfigService } from '../shared/app-config.service';
 
 @Component({
   selector: 'app-root',
