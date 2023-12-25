@@ -130,6 +130,7 @@ jobs:
       - name: Deploy Bicep file
         uses: azure/arm-deploy@v1
         with:
+          scope: resourcegroup
           deploymentName: ${{ env.DEPLOYMENT_NAME }}
           resourceGroupName: ${{ env.RESOURCE_GROUP_NAME }}
           template: deploy/main.bicep
@@ -177,3 +178,4 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ env.DEPLOYMENT_TOKEN }}
           action: 'close'
+          app_location: 'web'
