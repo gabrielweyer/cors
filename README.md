@@ -2,7 +2,7 @@
 
 [![Build Status][github-actions-shield]][github-actions]
 
-Hosted at [https://salmon-pond-0870a1e00-37.eastasia.2.azurestaticapps.net/][cors-app].
+Hosted at <https://salmon-pond-0870a1e00.2.azurestaticapps.net/>.
 
 Illustrates different scenarios related to [CORS][cors]:
 
@@ -25,7 +25,7 @@ Illustrates different scenarios related to [CORS][cors]:
 ```text
 access-control-request-headers: authorization
 access-control-request-method: GET
-origin: https://salmon-pond-0870a1e00-37.eastasia.2.azurestaticapps.net
+origin: https://salmon-pond-0870a1e00.2.azurestaticapps.net
 ```
 
 **Relevant preflight response headers**:
@@ -37,7 +37,7 @@ None
 The preflight fails as the response does not contain a `Access-Control-Allow-Origin` header. See the output of the `Chrome` console below:
 
 ```text
-Access to XMLHttpRequest at 'https://cors-func.azurewebsites.net/no-cors' from origin 'https://salmon-pond-0870a1e00-37.eastasia.2.azurestaticapps.net' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+Access to XMLHttpRequest at 'https://cors-func.azurewebsites.net/no-cors' from origin 'https://salmon-pond-0870a1e00.2.azurestaticapps.net' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource.
 ```
 
 ## With CORS headers (but without Access-Control-Max-Age)
@@ -52,7 +52,7 @@ Access to XMLHttpRequest at 'https://cors-func.azurewebsites.net/no-cors' from o
 ```text
 access-control-request-headers: authorization
 access-control-request-method: GET
-origin: https://salmon-pond-0870a1e00-37.eastasia.2.azurestaticapps.net
+origin: https://salmon-pond-0870a1e00.2.azurestaticapps.net
 ```
 
 **Relevant preflight response headers**:
@@ -61,7 +61,7 @@ origin: https://salmon-pond-0870a1e00-37.eastasia.2.azurestaticapps.net
 access-control-allow-credentials: true
 access-control-allow-headers: authorization
 access-control-allow-method: GET
-access-control-allow-origin: https://salmon-pond-0870a1e00-37.eastasia.2.azurestaticapps.net
+access-control-allow-origin: https://salmon-pond-0870a1e00.2.azurestaticapps.net
 ```
 
 ### Preflight result for CorsNoCache
@@ -77,13 +77,13 @@ The preflight succeeds and `Chrome` then issue the `GET` request.
 
 ```text
 authorization: Bearer TopSecret
-origin: https://salmon-pond-0870a1e00-37.eastasia.2.azurestaticapps.net
+origin: https://salmon-pond-0870a1e00.2.azurestaticapps.net
 ```
 
 **Relevant GET response headers**:
 
 ```text
-access-control-allow-origin: https://salmon-pond-0870a1e00-37.eastasia.2.azurestaticapps.net
+access-control-allow-origin: https://salmon-pond-0870a1e00.2.azurestaticapps.net
 ```
 
 ### GET result for CorsNoCache
@@ -110,7 +110,7 @@ The `GET` succeeds and returns the content of the `Authorization` header (super 
 ```text
 access-control-request-headers: authorization
 access-control-request-method: GET
-origin: https://salmon-pond-0870a1e00-37.eastasia.2.azurestaticapps.net
+origin: https://salmon-pond-0870a1e00.2.azurestaticapps.net
 ```
 
 **Relevant preflight response headers**:
@@ -119,7 +119,7 @@ origin: https://salmon-pond-0870a1e00-37.eastasia.2.azurestaticapps.net
 access-control-allow-credentials: true
 access-control-allow-headers: authorization
 access-control-allow-method: GET
-access-control-allow-origin: https://salmon-pond-0870a1e00-37.eastasia.2.azurestaticapps.net
+access-control-allow-origin: https://salmon-pond-0870a1e00.2.azurestaticapps.net
 access-control-max-age: 600
 ```
 
@@ -136,13 +136,13 @@ The preflight succeeds and `Chrome` then issue the `GET` request.
 
 ```text
 authorization: Bearer TopSecret
-origin: https://salmon-pond-0870a1e00-37.eastasia.2.azurestaticapps.net
+origin: https://salmon-pond-0870a1e00.2.azurestaticapps.net
 ```
 
 **Relevant GET response headers**:
 
 ```text
-access-control-allow-origin: https://salmon-pond-0870a1e00-37.eastasia.2.azurestaticapps.net
+access-control-allow-origin: https://salmon-pond-0870a1e00.2.azurestaticapps.net
 ```
 
 ### GET result for CorsCache
@@ -164,7 +164,6 @@ This is true as long as the result of the initial preflight is cached. `Access-C
 
 The initial preflight is only cached for the same path and query string.
 
-[cors-app]: https://salmon-pond-0870a1e00-37.eastasia.2.azurestaticapps.net/
 [cors]: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
 [max-age]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Max-Age#Directives
 [github-actions-shield]: https://github.com/gabrielweyer/cors/actions/workflows/workflow.yml/badge.svg
