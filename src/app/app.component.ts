@@ -1,11 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { AppConfigService } from '../shared/app-config.service';
+import { FooterComponent } from './footer/footer.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  standalone: true,
+  imports: [FooterComponent]
 })
 export class AppComponent {
   private readonly httpOptions = {
