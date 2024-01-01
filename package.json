@@ -41,6 +41,7 @@
     "typescript": "5.2.2"
   },
   "resolutions": {
+    "axios": "1.6.2",
     "semver": "7.5.4"
   },
   "packageManager": "yarn@3.5.0"
