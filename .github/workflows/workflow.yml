@@ -105,17 +105,17 @@ jobs:
       DEPLOYMENT_TOKEN:
     steps:
       - name: Download bicep artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: bicep
           path: deploy
       - name: Download web artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: web
           path: web
       - name: Download API artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: api
           path: api
