@@ -46,7 +46,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: yarn install
@@ -64,19 +64,19 @@ jobs:
           cd dist
           zip -r ./api.zip ./*
       - name: Upload API artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: api
           path: api/dist/api.zip
           if-no-files-found: error
       - name: Upload web artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: web
           path: dist/browser
           if-no-files-found: error
       - name: Upload bicep artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: bicep
           path: deploy
