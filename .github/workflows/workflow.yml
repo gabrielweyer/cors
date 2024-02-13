@@ -130,7 +130,7 @@ jobs:
       - name: Create / update resource group
         run: az group create --name ${{ env.RESOURCE_GROUP_NAME }} --location ${{ env.AZURE_LOCATION }}
       - name: Deploy Bicep file
-        uses: azure/arm-deploy@v1
+        uses: azure/arm-deploy@v2
         with:
           scope: resourcegroup
           deploymentName: ${{ env.DEPLOYMENT_NAME }}
