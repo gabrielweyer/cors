@@ -9187,12 +9187,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"undici@npm:6.2.1":
-  version: 6.2.1
-  resolution: "undici@npm:6.2.1"
+"undici@npm:6.6.1":
+  version: 6.6.1
+  resolution: "undici@npm:6.6.1"
   dependencies:
     "@fastify/busboy": ^2.0.0
-  checksum: 111b5366da759bba17fedfd21446fc9ce765cb18ffa625055536a50e8249899252c734bcd66ba5c03245114583a24c755e118ae7863e69778c7370ad5a0fa305
+  checksum: 54d59f442ca6e9b89350daa9e3945039d98682a30ab6c57e983e0d920d6632040ec5777a2f00a0ac1b9e781309616c6e41ec59a776c09dcfebffa43f22c77f1e
   languageName: node
   linkType: hard
 
