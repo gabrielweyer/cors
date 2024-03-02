@@ -43,6 +43,7 @@
   "resolutions": {
     "axios": "1.6.2",
     "semver": "7.5.4",
+    "undici": "6.6.1",
     "vite": "5.0.12"
   },
   "packageManager": "yarn@3.5.0"
