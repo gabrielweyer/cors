@@ -1107,13 +1107,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fastify/busboy@npm:^2.0.0":
-  version: 2.1.0
-  resolution: "@fastify/busboy@npm:2.1.0"
-  checksum: 3233abd10f73e50668cb4bb278a79b7b3fadd30215ac6458299b0e5a09a29c3586ec07597aae6bd93f5cbedfcef43a8aeea51829cd28fc13850cdbcd324c28d5
-  languageName: node
-  linkType: hard
-
 "@humanwhocodes/module-importer@npm:^1.0.1":
   version: 1.0.1
   resolution: "@humanwhocodes/module-importer@npm:1.0.1"
@@ -6076,12 +6069,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"undici@npm:6.6.1":
-  version: 6.6.1
-  resolution: "undici@npm:6.6.1"
-  dependencies:
-    "@fastify/busboy": ^2.0.0
-  checksum: 54d59f442ca6e9b89350daa9e3945039d98682a30ab6c57e983e0d920d6632040ec5777a2f00a0ac1b9e781309616c6e41ec59a776c09dcfebffa43f22c77f1e
+"undici@npm:6.18.0":
+  version: 6.18.0
+  resolution: "undici@npm:6.18.0"
+  checksum: 857a5de1a5e5db9db833e35182f692cbc71fbce214ba2f982f7f77a96d960f60d25b307e38218cda066b40f0b2df9886af625425553b6e6d9b638d272c0fb6f3
   languageName: node
   linkType: hard
 
