@@ -1,6 +1,13 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
+  "cli": {
+    "packageManager": "yarn",
+    "analytics": "7527ed7a-256b-4e92-a3db-fe67725dba6c",
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
+  },
   "newProjectRoot": "projects",
   "projects": {
     "cors": {
@@ -41,13 +48,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "2kB",
+                  "maximumError": "4kB"
                 }
               ],
               "fileReplacements": [
@@ -95,12 +102,6 @@
         }
       }
     }
-  },
-  "cli": {
-    "analytics": "7527ed7a-256b-4e92-a3db-fe67725dba6c",
-    "schematicCollections": [
-      "@angular-eslint/schematics"
-    ]
   },
   "schematics": {
     "@angular-eslint/schematics:application": {
