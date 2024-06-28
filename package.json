@@ -28,7 +28,7 @@
     "@angular/cli": "18.0.4",
     "@angular/compiler-cli": "18.0.4",
     "angular-eslint": "18.0.1",
-    "eslint": "9.3.0",
+    "eslint": "^9.3.0",
     "typescript": "5.4.5",
     "typescript-eslint": "8.0.0-alpha.20"
   },
