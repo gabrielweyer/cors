@@ -5,6 +5,8 @@ body {
   margin: 0;
   padding: 0 10px;
   height: 100%;
+  background: $background-color;
+  color: $font-color;
 }
 
 body {
@@ -42,6 +44,19 @@ h2 {
   font-size: $font-size-large;
 }
 
+button {
+  cursor: pointer;
+  background-color: $button-background-color;
+  color: $button-font-color;
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: 1px solid lighten($button-background-color, 10%);
+
+  &:hover {
+    background-color: lighten($button-background-color, 5%);
+  }
+}
+
 .mono-font {
   font-family: $mono-font-family;
   font-size: $mono-font-size-normal;
@@ -49,5 +64,5 @@ h2 {
   border-radius: 3px;
   padding: 0 5px;
   color: $mono-font-color;
-  border: 1px solid darken($mono-font-background-color, 10%);
+  border: 1px solid lighten($mono-font-background-color, 10%);
 }
