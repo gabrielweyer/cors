@@ -43,7 +43,7 @@ jobs:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     outputs:
       deployPullRequest: ${{ steps.should_deploy_pr.outputs.deployPullRequest }}
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
