@@ -1,4 +1,4 @@
-import { enableProdMode, APP_INITIALIZER, importProvidersFrom } from '@angular/core';
+import { enableProdMode, importProvidersFrom, inject, provideAppInitializer } from '@angular/core';
 import { environment } from './environments/environment';
 import { AppComponent } from './app/app.component';
 import { withInterceptorsFromDi, provideHttpClient } from '@angular/common/http';
@@ -13,7 +13,7 @@ bootstrapApplication(AppComponent, {
   providers: [
     importProvidersFrom(BrowserModule),
     AppConfigService,
-    { provide: APP_INITIALIZER, useFactory: (config: AppConfigService) => () => config.load(), deps: [AppConfigService], multi: true },
+    provideAppInitializer(((config: AppConfigService) => () => config.load())(inject(AppConfigService))),
     provideHttpClient(withInterceptorsFromDi())
   ]
 })

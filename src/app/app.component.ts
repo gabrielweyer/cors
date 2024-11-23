@@ -7,7 +7,6 @@ import { FooterComponent } from './footer/footer.component';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  standalone: true,
   imports: [FooterComponent]
 })
 export class AppComponent {
@@ -17,7 +16,7 @@ export class AppComponent {
     })
   };
 
-  constructor(private readonly http: HttpClient, private readonly appConfig: AppConfigService) {}
+  constructor(private readonly http: HttpClient, private readonly appConfig: AppConfigService) { }
 
   onCacheCors(): void {
     this.invoke('/cors-cache');
