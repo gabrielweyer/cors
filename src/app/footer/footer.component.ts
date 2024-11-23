@@ -7,7 +7,6 @@ import { LinkComponent } from '../link/link.component';
   selector: 'app-footer',
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',
-  standalone: true,
   imports: [LinkComponent, SlicePipe]
 })
 export class FooterComponent {
