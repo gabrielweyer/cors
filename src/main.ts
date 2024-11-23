@@ -13,7 +13,10 @@ bootstrapApplication(AppComponent, {
   providers: [
     importProvidersFrom(BrowserModule),
     AppConfigService,
-    provideAppInitializer(((config: AppConfigService) => () => config.load())(inject(AppConfigService))),
+    provideAppInitializer(() => {
+      const config = inject(AppConfigService);
+      return config.load();
+    }),
     provideHttpClient(withInterceptorsFromDi())
   ]
 })
