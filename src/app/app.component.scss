@@ -1,4 +1,4 @@
-@import '../variables.scss';
+@use '../variables.scss';
 
 .cors {
   &__app {
@@ -11,11 +11,11 @@
     width: 100%;
     bottom: 0;
     height: 8em;
-    font-size: $font-size-x-small;
+    font-size: variables.$font-size-x-small;
     text-align: center;
     padding: 2em 0;
 
-    @include lg {
+    @include variables.lg {
       height: 18em;
     }
   }
