@@ -95,7 +95,7 @@ jobs:
   release:
     name: Release
     if: ${{ github.ref == 'refs/heads/main' || needs.build.outputs.deployPullRequest == 'true' }}
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     environment: PROD
     needs: build
     env:
@@ -160,7 +160,7 @@ jobs:
   delete_preview_environment:
     name: Delete Static Web App Pull Request preview environment
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     environment: PROD
     env:
       DEPLOYMENT_TOKEN:
