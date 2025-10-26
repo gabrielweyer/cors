@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 interface Config {
   build: string;
@@ -9,11 +9,13 @@ interface Config {
 
 @Injectable()
 export class AppConfigService {
+  private readonly http = inject(HttpClient);
+
   build = '';
   commit = '';
   apiBaseUrl = '';
 
-  constructor(private readonly http: HttpClient) {}
+  constructor() {}
 
   public load(): Promise<unknown> {
     return new Promise((resolve) => {
