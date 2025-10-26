@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AppConfigService } from '../shared/app-config.service';
 import { FooterComponent } from './footer/footer.component';
 
@@ -10,13 +10,16 @@ import { FooterComponent } from './footer/footer.component';
   imports: [FooterComponent]
 })
 export class AppComponent {
+  private readonly http = inject(HttpClient);
+  private readonly appConfig = inject(AppConfigService);
+
   private readonly httpOptions = {
     headers: new HttpHeaders({
       Authorization: 'Bearer TopSecret'
     })
   };
 
-  constructor(private readonly http: HttpClient, private readonly appConfig: AppConfigService) { }
+  constructor() { }
 
   onCacheCors(): void {
     this.invoke('/cors-cache');
