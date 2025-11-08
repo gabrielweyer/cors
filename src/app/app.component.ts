@@ -19,8 +19,6 @@ export class AppComponent {
     })
   };
 
-  constructor() { }
-
   onCacheCors(): void {
     this.invoke('/cors-cache');
   }

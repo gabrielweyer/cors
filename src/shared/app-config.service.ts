@@ -15,8 +15,6 @@ export class AppConfigService {
   commit = '';
   apiBaseUrl = '';
 
-  constructor() {}
-
   public load(): Promise<unknown> {
     return new Promise((resolve) => {
       this.http
