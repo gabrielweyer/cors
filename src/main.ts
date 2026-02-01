@@ -1,4 +1,4 @@
-import { enableProdMode, importProvidersFrom, inject, provideAppInitializer } from '@angular/core';
+import { enableProdMode, importProvidersFrom, inject, provideAppInitializer, provideZoneChangeDetection } from '@angular/core';
 import { environment } from './environments/environment';
 import { AppComponent } from './app/app.component';
 import { withInterceptorsFromDi, provideHttpClient } from '@angular/common/http';
@@ -11,7 +11,7 @@ if (environment.production) {
 
 bootstrapApplication(AppComponent, {
   providers: [
-    importProvidersFrom(BrowserModule),
+    provideZoneChangeDetection(),importProvidersFrom(BrowserModule),
     AppConfigService,
     provideAppInitializer(() => {
       const config = inject(AppConfigService);
