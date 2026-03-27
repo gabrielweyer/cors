@@ -46,7 +46,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - name: yarn install
@@ -64,19 +64,19 @@ jobs:
           cd dist
           zip -r ./api.zip ./*
       - name: Upload API artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: api
           path: api/dist/api.zip
           if-no-files-found: error
       - name: Upload web artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: web
           path: dist/browser
           if-no-files-found: error
       - name: Upload bicep artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: bicep
           path: deploy
@@ -105,22 +105,22 @@ jobs:
       DEPLOYMENT_TOKEN:
     steps:
       - name: Download bicep artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: bicep
           path: deploy
       - name: Download web artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: web
           path: web
       - name: Download API artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: api
           path: api
       - name: Sign in to Azure
-        uses: azure/login@v2
+        uses: azure/login@v3
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID_1 }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
@@ -130,15 +130,16 @@ jobs:
       - name: Create / update resource group
         run: az group create --name ${{ env.RESOURCE_GROUP_NAME }} --location ${{ env.AZURE_LOCATION }}
       - name: Deploy Bicep file
-        uses: azure/arm-deploy@v2
+        uses: azure/bicep-deploy@v2
         with:
+          type: deployment
+          operation: create
+          name: ${{ env.DEPLOYMENT_NAME }}
           scope: resourcegroup
-          deploymentName: ${{ env.DEPLOYMENT_NAME }}
-          resourceGroupName: ${{ env.RESOURCE_GROUP_NAME }}
-          template: deploy/main.bicep
-          parameters: >
-            staticWebAppLocation=${{ env.AZURE_LOCATION }}
-          failOnStdErr: false
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          resource-group-name: ${{ env.RESOURCE_GROUP_NAME }}
+          template-file: deploy/main.bicep
+          parameters: '{"staticWebAppLocation": "${{ env.AZURE_LOCATION }}"}'
       - name: Set Static Web App deployment token
         run: |
           jsonDeploymentToken=$(az staticwebapp secrets list --name ${{ env.STATIC_WEB_APP_NAME }} --resource-group ${{ env.RESOURCE_GROUP_NAME }} --query 'properties.apiKey')
@@ -166,7 +167,7 @@ jobs:
       DEPLOYMENT_TOKEN:
     steps:
       - name: Sign in to Azure
-        uses: azure/login@v1
+        uses: azure/login@v3
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID_1 }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
