@@ -135,7 +135,7 @@ jobs:
           type: deployment
           operation: create
           name: ${{ env.DEPLOYMENT_NAME }}
-          scope: resourcegroup
+          scope: resourceGroup
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           resource-group-name: ${{ env.RESOURCE_GROUP_NAME }}
           template-file: deploy/main.bicep
