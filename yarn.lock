@@ -583,17 +583,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular/router@npm:21.2.4":
-  version: 21.2.4
-  resolution: "@angular/router@npm:21.2.4"
+"@angular/router@npm:21.2.24":
+  version: 21.2.24
+  resolution: "@angular/router@npm:21.2.24"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@angular/common": 21.2.4
-    "@angular/core": 21.2.4
-    "@angular/platform-browser": 21.2.4
+    "@angular/common": 21.2.24
+    "@angular/core": 21.2.24
+    "@angular/platform-browser": 21.2.24
     rxjs: ^6.5.3 || ^7.4.0
-  checksum: 10/16d96d33db928c594554748f579992ade752ac2f42268e8de8d7dc3d7949cc34ce335b95a488e749917624d385fffa89ff0f077f060feab587d197080b89ec3d
+  checksum: 10/03c7b148961bc5911c63ab5d6e265473a5ec4f3c76b4eb52ef71deadf46b6e8b8b79e916745563dc838b118ad063e4a20fc0493b10aba8014ba0238b0df07c75
   languageName: node
   linkType: hard
 
@@ -3325,7 +3325,7 @@ __metadata:
     "@angular/forms": "npm:21.2.4"
     "@angular/platform-browser": "npm:21.2.4"
     "@angular/platform-browser-dynamic": "npm:21.2.4"
-    "@angular/router": "npm:21.2.4"
+    "@angular/router": "npm:21.2.24"
     "@typescript-eslint/eslint-plugin": "npm:8.33.1"
     "@typescript-eslint/parser": "npm:8.33.1"
     angular-eslint: "npm:21.3.0"
