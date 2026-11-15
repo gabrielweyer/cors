@@ -63,6 +63,9 @@ resource apiApp 'Microsoft.Web/sites@2025-03-01' = {
   properties: {
     httpsOnly: true
     serverFarmId: hostingPlan.id
+    siteConfig: {
+      netFrameworkVersion: 'v10.0'
+    }
   }
 }
 
@@ -74,7 +77,7 @@ resource apiAppSettings 'Microsoft.Web/sites/config@2025-03-01' = {
     APPLICATIONINSIGHTS_CONNECTION_STRING: applicationInsights.properties.ConnectionString
     AzureWebJobsStorage: storageConnectionString
     FUNCTIONS_EXTENSION_VERSION: '~4'
-    FUNCTIONS_WORKER_RUNTIME: 'dotnet'
+    FUNCTIONS_WORKER_RUNTIME: 'dotnet-isolated'
     WEBSITE_CONTENTAZUREFILECONNECTIONSTRING: storageConnectionString
     WEBSITE_CONTENTSHARE: functionAppName
     WEBSITE_RUN_FROM_PACKAGE: '1'

@@ -6,7 +6,7 @@ How to run the app and the API locally and check your changes by hand.
 
 - [Node.js][node] `^22.22.3` or `^24.15.0` (required by Angular 22)
 - [Yarn][yarn]: the repository ships its own Yarn release in `.yarn/releases`, so any `yarn` on your `PATH` will use it
-- [.NET 6 SDK][dotnet]
+- [.NET 10 SDK][dotnet]
 - [Azure Functions Core Tools v4][func]
 
 You don't need Azurite: the API only uses HTTP triggers.
@@ -47,9 +47,10 @@ Open <http://localhost:4200>.
 ```bash
 yarn lint
 yarn build-prod
+dotnet build api
 ```
 
 [node]: https://nodejs.org/
 [yarn]: https://yarnpkg.com/
-[dotnet]: https://dotnet.microsoft.com/download/dotnet/6.0
+[dotnet]: https://dotnet.microsoft.com/download/dotnet/10.0
 [func]: https://learn.microsoft.com/azure/azure-functions/functions-run-local
