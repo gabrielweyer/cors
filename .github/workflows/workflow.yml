@@ -66,12 +66,14 @@ jobs:
         run: |
           dotnet publish --configuration Release --output ./dist
           cd dist
-          zip -r ./api.zip ./*
+          # '.' rather than '*' so the hidden .azurefunctions folder (function metadata loader) is included
+          zip -r ../api.zip .
+          unzip -l ../api.zip | grep -q '\.azurefunctions/' || { echo "::error ::.azurefunctions folder missing from api.zip"; exit 1; }
       - name: Upload API artifact
         uses: actions/upload-artifact@v6
         with:
           name: api
-          path: api/dist/api.zip
+          path: api/api.zip
           if-no-files-found: error
       - name: Upload web artifact
         uses: actions/upload-artifact@v6
