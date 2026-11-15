@@ -1,11 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-link',
   templateUrl: './link.component.html',
-  styleUrl: './link.component.scss',
-  standalone: true
+  styleUrl: './link.component.scss'
 })
 export class LinkComponent {
-  @Input() href!: string;
+  readonly href = input.required<string>();
 }
