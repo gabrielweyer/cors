@@ -25,10 +25,12 @@ Use two terminals.
 
 ```bash
 cd api
-func start
+dotnet run
 ```
 
 The API listens on `http://localhost:7071`, which matches `apiBaseUrl` in `src/environment.json`.
+
+Use `dotnet run` rather than `func start`. With Core Tools 4.16, `func start` writes a default `host.json` to its build output, which drops the empty `routePrefix` and moves every endpoint under `/api`.
 
 ### 2. Front-end (Angular)
 
