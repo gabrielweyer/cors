@@ -1,7 +1,7 @@
 import { enableProdMode, importProvidersFrom, inject, provideAppInitializer, provideZoneChangeDetection } from '@angular/core';
 import { environment } from './environments/environment';
 import { AppComponent } from './app/app.component';
-import { withInterceptorsFromDi, provideHttpClient } from '@angular/common/http';
+import { withInterceptorsFromDi, provideHttpClient, withXhr } from '@angular/common/http';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { AppConfigService } from './shared/app-config.service';
 
@@ -17,7 +17,7 @@ bootstrapApplication(AppComponent, {
       const config = inject(AppConfigService);
       return config.load();
     }),
-    provideHttpClient(withInterceptorsFromDi())
+    provideHttpClient(withXhr(), withInterceptorsFromDi())
   ]
 })
   .catch(err => console.error(err));
