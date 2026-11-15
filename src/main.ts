@@ -1,24 +1,14 @@
-import { enableProdMode, importProvidersFrom, inject, provideAppInitializer, provideZonelessChangeDetection } from '@angular/core';
-import { environment } from './environments/environment';
+import { inject, provideAppInitializer, provideZonelessChangeDetection } from '@angular/core';
+import { provideHttpClient } from '@angular/common/http';
+import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
-import { withInterceptorsFromDi, provideHttpClient, withXhr } from '@angular/common/http';
-import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { AppConfigService } from './shared/app-config.service';
-
-if (environment.production) {
-  enableProdMode();
-}
 
 bootstrapApplication(AppComponent, {
   providers: [
     provideZonelessChangeDetection(),
-    importProvidersFrom(BrowserModule),
-    AppConfigService,
-    provideAppInitializer(() => {
-      const config = inject(AppConfigService);
-      return config.load();
-    }),
-    provideHttpClient(withXhr(), withInterceptorsFromDi())
+    provideHttpClient(),
+    provideAppInitializer(() => inject(AppConfigService).load())
   ]
 })
   .catch(err => console.error(err));
