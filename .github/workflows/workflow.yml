@@ -153,7 +153,7 @@ jobs:
           echo "::add-mask::$deploymentToken"
           echo "DEPLOYMENT_TOKEN=$deploymentToken" >> $GITHUB_ENV
       - name: Deploy to Static Web App
-        uses: Azure/static-web-apps-deploy@v1
+        uses: Azure/static-web-apps-deploy@4d27395796ac319302594769cfe812bd207490b1 # v1
         with:
           azure_static_web_apps_api_token: ${{ env.DEPLOYMENT_TOKEN }}
           action: 'upload'
@@ -185,7 +185,7 @@ jobs:
           echo "::add-mask::$deploymentToken"
           echo "DEPLOYMENT_TOKEN=$deploymentToken" >> $GITHUB_ENV
       - name: Delete preview environment
-        uses: Azure/static-web-apps-deploy@v1
+        uses: Azure/static-web-apps-deploy@4d27395796ac319302594769cfe812bd207490b1 # v1
         with:
           azure_static_web_apps_api_token: ${{ env.DEPLOYMENT_TOKEN }}
           action: 'close'
