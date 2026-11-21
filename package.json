@@ -22,12 +22,12 @@
     "@angular/cli": "22.2.7",
     "@angular/compiler-cli": "22.2.6",
     "@eslint/js": "10.0.1",
-    "@typescript-eslint/eslint-plugin": "8.72.2",
-    "@typescript-eslint/parser": "8.72.2",
+    "@typescript-eslint/eslint-plugin": "8.73.0",
+    "@typescript-eslint/parser": "8.73.0",
     "angular-eslint": "22.6.0",
     "eslint": "10.15.0",
     "typescript": "6.0.3",
-    "typescript-eslint": "8.72.2"
+    "typescript-eslint": "8.73.0"
   },
   "packageManager": "yarn@4.13.0"
 }
